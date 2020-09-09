@@ -1,16 +1,19 @@
+require('dotenv').config()
+console.log(process.env)
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 
 const app = express()
-const port = 3001
+const port = process.env.PORT | 3001
+const baseURL = process.env.BASE_URL
 
 app.use(cors())
 app.use(bodyParser.json())
 
 const instance = axios.create({
-  baseURL: 'https://1t8el77y9k.execute-api.eu-west-2.amazonaws.com',
+  baseURL: baseURL,
   timeout: 100000,
 });
 
@@ -39,5 +42,5 @@ app.use('*', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Sgush middleware listening on http://localhost:${port}`)
 })
